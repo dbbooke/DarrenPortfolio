@@ -1,5 +1,6 @@
 class PortfoliosController < ApplicationController
 layout "portfolio"
+access all: [:show, :index, :angular], user: {except: [:destroy, :new, :create, :update, :edit]}, site_admin: :all
 
 	def index
 		@portfolio_item = Portfolio.all
@@ -66,4 +67,8 @@ layout "portfolio"
     def portfolio_params
       params.require(:portfolio).permit(:title, :subtitle, :body, technologies_attributes: [:name])
 end
+
+  def set_portfolio_item
+    @portfolio_item = Portfolio.find(params[:id])
+    end
 end
